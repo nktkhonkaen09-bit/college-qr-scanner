@@ -12,7 +12,6 @@
 
   <title>ระบบบันทึกเข้า-ออก วิทยาลัยฯ</title>
 
-  <!-- QR Scanner Library -->
   <script src="https://unpkg.com/html5-qrcode"></script>
 
   <style>
@@ -59,7 +58,7 @@
 
     .card {
 
-      background: white;
+      background: #ffffff;
 
       border-radius: 20px;
 
@@ -72,9 +71,9 @@
     }
 
 
-    /* ========================================
+    /* =========================
        HEADER
-    ======================================== */
+    ========================= */
 
     .header {
 
@@ -107,9 +106,9 @@
     }
 
 
-    /* ========================================
+    /* =========================
        LOCATION
-    ======================================== */
+    ========================= */
 
     .location-box {
 
@@ -137,24 +136,22 @@
 
       padding: 0 15px;
 
-      border:
-        1px solid
-        #cbd5e1;
+      border: 1px solid #cbd5e1;
 
       border-radius: 10px;
 
       font-size: 16px;
 
-      background: white;
+      background: #ffffff;
 
       color: #1e293b;
 
     }
 
 
-    /* ========================================
+    /* =========================
        SCANNER
-    ======================================== */
+    ========================= */
 
     .scanner-title {
 
@@ -184,9 +181,9 @@
     }
 
 
-    /* ========================================
+    /* =========================
        STATUS
-    ======================================== */
+    ========================= */
 
     .status-text {
 
@@ -194,18 +191,18 @@
 
       margin-top: 15px;
 
+      min-height: 22px;
+
       color: #64748b;
 
       font-size: 14px;
 
-      min-height: 22px;
-
     }
 
 
-    /* ========================================
+    /* =========================
        LOADING
-    ======================================== */
+    ========================= */
 
     .loading {
 
@@ -228,18 +225,13 @@
 
       margin: 0 auto 10px;
 
-      border:
-        4px solid
-        #e2e8f0;
+      border: 4px solid #e2e8f0;
 
-      border-top:
-        4px solid
-        #2563eb;
+      border-top: 4px solid #2563eb;
 
       border-radius: 50%;
 
-      animation:
-        spin 1s linear infinite;
+      animation: spin 1s linear infinite;
 
     }
 
@@ -247,18 +239,15 @@
     @keyframes spin {
 
       100% {
-
-        transform:
-          rotate(360deg);
-
+        transform: rotate(360deg);
       }
 
     }
 
 
-    /* ========================================
+    /* =========================
        RESULT
-    ======================================== */
+    ========================= */
 
     .result {
 
@@ -335,78 +324,38 @@
     }
 
 
-    /* ========================================
-       COUNTDOWN
-    ======================================== */
-
     .countdown {
 
       margin-top: 12px;
 
       font-size: 14px;
 
-      color: #166534;
-
       font-weight: bold;
 
     }
 
 
-    .result.error .countdown {
-
-      color: #991b1b;
-
-    }
-
-
-    /* ========================================
+    /* =========================
        MOBILE
-    ======================================== */
+    ========================= */
 
     @media (max-width: 600px) {
 
       .container {
-
         padding: 10px;
-
       }
 
       .card {
-
         padding: 18px;
-
         border-radius: 15px;
-
       }
 
       .header h1 {
-
         font-size: 24px;
-
-      }
-
-      .header p {
-
-        font-size: 14px;
-
       }
 
       .student-name {
-
         font-size: 21px;
-
-      }
-
-      .student-id {
-
-        font-size: 16px;
-
-      }
-
-      .scan-time {
-
-        font-size: 14px;
-
       }
 
     }
@@ -424,9 +373,7 @@
   <div class="card">
 
 
-    <!-- ======================================
-         HEADER
-    ======================================= -->
+    <!-- HEADER -->
 
     <div class="header">
 
@@ -441,16 +388,12 @@
     </div>
 
 
-    <!-- ======================================
-         LOCATION
-    ======================================= -->
+    <!-- LOCATION -->
 
     <div class="location-box">
 
       <label for="location">
-
         สถานที่
-
       </label>
 
 
@@ -477,9 +420,7 @@
     </div>
 
 
-    <!-- ======================================
-         SCANNER
-    ======================================= -->
+    <!-- SCANNER -->
 
     <div class="scanner-title">
 
@@ -495,15 +436,11 @@
       id="statusText"
       class="status-text"
     >
-
       กำลังเตรียมกล้อง...
-
     </div>
 
 
-    <!-- ======================================
-         LOADING
-    ======================================= -->
+    <!-- LOADING -->
 
     <div
       id="loading"
@@ -519,9 +456,7 @@
     </div>
 
 
-    <!-- ======================================
-         RESULT
-    ======================================= -->
+    <!-- RESULT -->
 
     <div
       id="result"
@@ -536,38 +471,31 @@
       </div>
 
 
-      <div
-        id="resultMessage"
-      >
-      </div>
+      <div id="resultMessage"></div>
 
 
       <div
         id="studentName"
         class="student-name"
-      >
-      </div>
+      ></div>
 
 
       <div
         id="studentId"
         class="student-id"
-      >
-      </div>
+      ></div>
 
 
       <div
         id="scanTime"
         class="scan-time"
-      >
-      </div>
+      ></div>
 
 
       <div
         id="countdown"
         class="countdown"
-      >
-      </div>
+      ></div>
 
     </div>
 
@@ -579,11 +507,9 @@
 
 <script>
 
-
 /************************************************
  * CONFIG
  ************************************************/
-
 
 const SCRIPT_URL =
   "https://script.google.com/macros/s/AKfycbyoNi3ZkpARFuV3fKx7_fRfUoBGW8_GbA8VXrmRCWnJ2k-PS_3S-gHx-O_DlV-nMWWK/exec";
@@ -594,9 +520,19 @@ const API_KEY =
 
 
 /************************************************
- * SYSTEM VARIABLES
+ * SETTINGS
  ************************************************/
 
+const WAIT_TIME = 3000;
+
+const DUPLICATE_TIME = 5000;
+
+const REQUEST_TIMEOUT = 15000;
+
+
+/************************************************
+ * SYSTEM VARIABLES
+ ************************************************/
 
 let scanner = null;
 
@@ -610,32 +546,18 @@ let lastScanTime = 0;
 
 let resultTimer = null;
 
-let jsonpTimeout = null;
+let countdownTimer = null;
+
+let requestTimer = null;
 
 
 /************************************************
- * SETTINGS
+ * START
  ************************************************/
-
-
-// เวลาที่แสดงผลหลังบันทึก
-const WAIT_TIME = 3000;
-
-// เวลากัน QR เดิมซ้ำ
-const DUPLICATE_TIME = 5000;
-
-// Timeout การเชื่อมต่อ Apps Script
-const REQUEST_TIMEOUT = 15000;
-
-
-/************************************************
- * START SYSTEM
- ************************************************/
-
 
 window.addEventListener(
   "load",
-  function() {
+  function () {
 
     startScanner();
 
@@ -644,15 +566,15 @@ window.addEventListener(
 
 
 /************************************************
- * START SCANNER
+ * START CAMERA
  ************************************************/
-
 
 function startScanner() {
 
-
-  // ถ้ากล้องกำลังทำงานอยู่
-  // ไม่ต้องเปิดซ้ำ
+  /*
+   * ถ้ากล้องเปิดอยู่แล้ว
+   * ไม่ต้องเปิดใหม่
+   */
 
   if (scanning) {
 
@@ -661,23 +583,14 @@ function startScanner() {
   }
 
 
-  const reader =
-    document.getElementById(
-      "reader"
-    );
-
-
   /*
-   * ถ้า Scanner ยังไม่มี
-   * ให้สร้างเพียงครั้งเดียว
+   * สร้าง Scanner เพียงครั้งเดียว
    */
 
   if (!scanner) {
 
     scanner =
-      new Html5Qrcode(
-        "reader"
-      );
+      new Html5Qrcode("reader");
 
   }
 
@@ -718,7 +631,7 @@ function startScanner() {
     )
 
     .then(
-      function() {
+      function () {
 
         scanning = true;
 
@@ -733,7 +646,7 @@ function startScanner() {
     )
 
     .catch(
-      function(error) {
+      function (error) {
 
         console.error(
           "Camera error:",
@@ -754,19 +667,19 @@ function startScanner() {
 
 
 /************************************************
- * QR SCAN SUCCESS
+ * QR SUCCESS
  ************************************************/
-
 
 function onScanSuccess(
   decodedText,
   decodedResult
 ) {
 
-
   /*
-   * ถ้ากำลังประมวลผล
-   * ไม่รับ QR ใหม่
+   * สำคัญมาก:
+   *
+   * ถ้ากำลังบันทึก หรือกำลังรอ 3 วินาที
+   * จะไม่รับ QR ใหม่
    */
 
   if (processing) {
@@ -777,13 +690,8 @@ function onScanSuccess(
 
 
   const studentId =
-    String(decodedText)
-      .trim();
+    String(decodedText).trim();
 
-
-  /*
-   * QR ว่าง
-   */
 
   if (!studentId) {
 
@@ -793,7 +701,7 @@ function onScanSuccess(
 
 
   /*
-   * ป้องกัน QR เดิมถูกอ่านซ้ำ
+   * ป้องกัน QR เดิมซ้ำ
    */
 
   const now =
@@ -819,35 +727,31 @@ function onScanSuccess(
 
 
   /*
-   * ล็อกระบบ
+   * ล็อกระบบทันที
    */
 
   processing = true;
 
 
   /*
-   * บันทึกข้อมูล
+   * บันทึก
    */
 
-  saveStudent(
-    studentId
-  );
+  saveStudent(studentId);
 
 }
 
 
 /************************************************
- * QR SCAN ERROR
+ * QR ERROR
  ************************************************/
-
 
 function onScanError(
   errorMessage
 ) {
 
   /*
-   * ไม่แสดง Error
-   * เพราะฟังก์ชันนี้ทำงานหลายครั้งต่อวินาที
+   * ไม่ต้องทำอะไร
    */
 
 }
@@ -857,31 +761,21 @@ function onScanError(
  * SAVE STUDENT
  ************************************************/
 
-
 function saveStudent(
   studentId
 ) {
 
-
   const location =
     document
-      .getElementById(
-        "location"
-      )
+      .getElementById("location")
       .value;
 
 
-  /*
-   * แสดง Loading
-   */
-
-  showLoading(
-    true
-  );
+  showLoading(true);
 
 
   /*
-   * สร้าง JSONP callback
+   * สร้าง JSONP Callback
    */
 
   const callbackName =
@@ -890,26 +784,22 @@ function saveStudent(
 
 
   /*
-   * สร้าง script
+   * สร้าง Script
    */
 
   const script =
-    document.createElement(
-      "script"
-    );
+    document.createElement("script");
 
 
   /*
    * Timeout
    */
 
-  jsonpTimeout =
+  requestTimer =
     setTimeout(
-      function() {
+      function () {
 
-        showLoading(
-          false
-        );
+        showLoading(false);
 
         showError(
           "การเชื่อมต่อใช้เวลานานเกินไป กรุณาลองใหม่"
@@ -930,25 +820,19 @@ function saveStudent(
    */
 
   window[callbackName] =
-    function(data) {
+    function (data) {
 
-
-      clearTimeout(
-        jsonpTimeout
-      );
+      clearTimeout(requestTimer);
 
 
       try {
-
 
         if (
           data &&
           data.success
         ) {
 
-          showSuccess(
-            data
-          );
+          showSuccess(data);
 
         }
 
@@ -963,10 +847,9 @@ function saveStudent(
 
         }
 
-
       }
 
-      catch(error) {
+      catch (error) {
 
         showError(
           error.message
@@ -1020,23 +903,15 @@ function saveStudent(
    */
 
   script.onerror =
-    function() {
+    function () {
 
+      clearTimeout(requestTimer);
 
-      clearTimeout(
-        jsonpTimeout
-      );
-
-
-      showLoading(
-        false
-      );
-
+      showLoading(false);
 
       showError(
         "ไม่สามารถเชื่อมต่อ Google Apps Script ได้"
       );
-
 
       cleanupJsonp(
         script,
@@ -1046,33 +921,21 @@ function saveStudent(
     };
 
 
-  /*
-   * ส่ง Request
-   */
-
   document
     .body
-    .appendChild(
-      script
-    );
+    .appendChild(script);
 
 }
 
 
 /************************************************
- * SHOW LOADING
+ * LOADING
  ************************************************/
 
-
-function showLoading(
-  show
-) {
-
+function showLoading(show) {
 
   document
-    .getElementById(
-      "loading"
-    )
+    .getElementById("loading")
     .style.display =
       show
         ? "block"
@@ -1082,99 +945,72 @@ function showLoading(
 
 
 /************************************************
- * SHOW SUCCESS
+ * SUCCESS
  ************************************************/
 
+function showSuccess(data) {
 
-function showSuccess(
-  data
-) {
+  showLoading(false);
 
-
-  /*
-   * ปิด Loading
-   */
-
-  showLoading(
-    false
-  );
-
-
-  /*
-   * แสดง Result
-   */
 
   const result =
-    document.getElementById(
-      "result"
-    );
+    document.getElementById("result");
 
+
+  /*
+   * แสดงผล
+   */
 
   result.className =
     "result success";
-
 
   result.style.display =
     "block";
 
 
   /*
-   * Icon
+   * ข้อความหลัก
    */
 
   document
-    .getElementById(
-      "resultIcon"
-    )
+    .getElementById("resultIcon")
     .innerText =
       "✓";
 
 
-  /*
-   * Message
-   */
-
   document
-    .getElementById(
-      "resultMessage"
-    )
+    .getElementById("resultMessage")
     .innerText =
       "บันทึกข้อมูลแล้ว";
 
 
   /*
-   * Student Name
+   * ชื่อ
    */
 
   document
-    .getElementById(
-      "studentName"
-    )
+    .getElementById("studentName")
     .innerText =
       data.studentName || "";
 
 
   /*
-   * Student ID
+   * รหัส
    */
 
   document
-    .getElementById(
-      "studentId"
-    )
+    .getElementById("studentId")
     .innerText =
       "Student ID: " +
       (data.studentId || "");
 
 
   /*
-   * Date / Time / Location
+   * เวลา
    */
 
   document
-    .getElementById(
-      "scanTime"
-    )
+    .getElementById("scanTime")
     .innerText =
       (data.date || "") +
       " เวลา " +
@@ -1184,180 +1020,133 @@ function showSuccess(
 
 
   /*
-   * Countdown
+   * สถานะ
    */
 
-  startCountdown(
-    WAIT_TIME,
-    function() {
+  document
+    .getElementById("statusText")
+    .innerText =
+      "บันทึกสำเร็จ";
 
-      restartScanner();
 
-    }
-  );
+  /*
+   * รอ 3 วินาที
+   */
+
+  waitAndReady();
 
 }
 
 
 /************************************************
- * SHOW ERROR
+ * ERROR
  ************************************************/
 
+function showError(message) {
 
-function showError(
-  message
-) {
+  showLoading(false);
 
-
-  /*
-   * ปิด Loading
-   */
-
-  showLoading(
-    false
-  );
-
-
-  /*
-   * แสดง Result
-   */
 
   const result =
-    document.getElementById(
-      "result"
-    );
+    document.getElementById("result");
 
 
   result.className =
     "result error";
 
-
   result.style.display =
     "block";
 
 
-  /*
-   * Icon
-   */
-
   document
-    .getElementById(
-      "resultIcon"
-    )
+    .getElementById("resultIcon")
     .innerText =
       "!";
 
 
-  /*
-   * Message
-   */
-
   document
-    .getElementById(
-      "resultMessage"
-    )
+    .getElementById("resultMessage")
     .innerText =
       message;
 
 
+  document
+    .getElementById("studentName")
+    .innerText =
+      "";
+
+
+  document
+    .getElementById("studentId")
+    .innerText =
+      "";
+
+
+  document
+    .getElementById("scanTime")
+    .innerText =
+      "";
+
+
+  document
+    .getElementById("statusText")
+    .innerText =
+      "เกิดข้อผิดพลาด";
+
+
   /*
-   * ล้างข้อมูลนักศึกษา
+   * รอ 3 วินาที
+   * แล้วกลับมาสแกนใหม่
    */
 
-  document
-    .getElementById(
-      "studentName"
-    )
-    .innerText =
-      "";
+  waitAndReady();
+
+}
 
 
-  document
-    .getElementById(
-      "studentId"
-    )
-    .innerText =
-      "";
+/************************************************
+ * WAIT 3 SECONDS
+ ************************************************/
+
+function waitAndReady() {
+
+  /*
+   * ยกเลิก Timer เก่า
+   */
+
+  clearTimeout(resultTimer);
+
+  clearInterval(countdownTimer);
 
 
-  document
-    .getElementById(
-      "scanTime"
-    )
-    .innerText =
-      "";
+  let seconds = 3;
+
+
+  const countdown =
+    document.getElementById("countdown");
+
+
+  countdown.innerText =
+    "พร้อมสแกนคนถัดไปใน " +
+    seconds +
+    " วินาที";
 
 
   /*
    * Countdown
    */
 
-  startCountdown(
-    WAIT_TIME,
-    function() {
-
-      restartScanner();
-
-    }
-  );
-
-}
-
-
-/************************************************
- * COUNTDOWN
- ************************************************/
-
-
-function startCountdown(
-  milliseconds,
-  callback
-) {
-
-
-  /*
-   * ยกเลิก Timer เดิม
-   */
-
-  clearTimeout(
-    resultTimer
-  );
-
-
-  let seconds =
-    Math.ceil(
-      milliseconds / 1000
-    );
-
-
-  const countdown =
-    document.getElementById(
-      "countdown"
-    );
-
-
-  countdown.innerText =
-    "กำลังเตรียมสแกนคนถัดไปใน " +
-    seconds +
-    " วินาที";
-
-
-  /*
-   * Countdown ทุก 1 วินาที
-   */
-
-  const interval =
+  countdownTimer =
     setInterval(
-      function() {
+      function () {
 
         seconds--;
 
-        if (
-          seconds > 0
-        ) {
+
+        if (seconds > 0) {
 
           countdown.innerText =
-            "กำลังเตรียมสแกนคนถัดไปใน " +
+            "พร้อมสแกนคนถัดไปใน " +
             seconds +
             " วินาที";
 
@@ -1369,153 +1158,96 @@ function startCountdown(
 
 
   /*
-   * ครบเวลา
+   * ครบ 3 วินาที
    */
 
   resultTimer =
     setTimeout(
-      function() {
+      function () {
 
         clearInterval(
-          interval
+          countdownTimer
         );
 
-        countdown.innerText =
-          "";
 
-        callback();
+        /*
+         * ซ่อนผลลัพธ์
+         */
+
+        document
+          .getElementById("result")
+          .style.display =
+            "none";
+
+
+        /*
+         * ล้างข้อมูลเดิม
+         */
+
+        document
+          .getElementById("resultMessage")
+          .innerText =
+            "";
+
+
+        document
+          .getElementById("studentName")
+          .innerText =
+            "";
+
+
+        document
+          .getElementById("studentId")
+          .innerText =
+            "";
+
+
+        document
+          .getElementById("scanTime")
+          .innerText =
+            "";
+
+
+        document
+          .getElementById("countdown")
+          .innerText =
+            "";
+
+
+        /*
+         * ปลดล็อกระบบ
+         */
+
+        processing = false;
+
+
+        /*
+         * ล้าง QR เดิม
+         */
+
+        lastScannedId = "";
+
+        lastScanTime = 0;
+
+
+        /*
+         * สำคัญ:
+         *
+         * ไม่ restart กล้อง
+         * ไม่ stop กล้อง
+         *
+         * กล้องยังเปิดอยู่ตั้งแต่ต้น
+         */
+
+        document
+          .getElementById("statusText")
+          .innerText =
+            "พร้อมสแกน QR Code";
+
 
       },
-      milliseconds
+      WAIT_TIME
     );
-
-}
-
-
-/************************************************
- * STOP SCANNER
- ************************************************/
-
-
-async function stopScanner() {
-
-
-  if (
-    !scanner ||
-    !scanning
-  ) {
-
-    scanning = false;
-
-    return;
-
-  }
-
-
-  try {
-
-    await scanner.stop();
-
-  }
-
-  catch(error) {
-
-    console.error(
-      "Scanner stop error:",
-      error
-    );
-
-  }
-
-
-  scanning =
-    false;
-
-
-  document
-    .getElementById(
-      "statusText"
-    )
-    .innerText =
-      "กำลังเตรียมสแกนคนถัดไป...";
-
-}
-
-
-/************************************************
- * RESTART SCANNER
- ************************************************/
-
-
-async function restartScanner() {
-
-
-  /*
-   * ยกเลิก Timer เดิม
-   */
-
-  clearTimeout(
-    resultTimer
-  );
-
-
-  /*
-   * ล้างสถานะ
-   */
-
-  processing =
-    false;
-
-
-  lastScannedId =
-    "";
-
-
-  lastScanTime =
-    0;
-
-
-  /*
-   * ซ่อนผลลัพธ์
-   */
-
-  document
-    .getElementById(
-      "result"
-    )
-    .style.display =
-      "none";
-
-
-  /*
-   * ปิด Loading
-   */
-
-  showLoading(
-    false
-  );
-
-
-  /*
-   * ถ้ากล้องยังเปิดอยู่
-   * ให้หยุดก่อน
-   */
-
-  if (
-    scanner &&
-    scanning
-  ) {
-
-    await stopScanner();
-
-  }
-
-
-  /*
-   * เปิดกล้องใหม่
-   */
-
-  startScanner();
 
 }
 
@@ -1524,16 +1256,10 @@ async function restartScanner() {
  * CLEANUP JSONP
  ************************************************/
 
-
 function cleanupJsonp(
   script,
   callbackName
 ) {
-
-
-  /*
-   * ลบ Script
-   */
 
   if (
     script &&
@@ -1542,16 +1268,10 @@ function cleanupJsonp(
 
     script
       .parentNode
-      .removeChild(
-        script
-      );
+      .removeChild(script);
 
   }
 
-
-  /*
-   * ลบ Callback
-   */
 
   try {
 
@@ -1561,7 +1281,7 @@ function cleanupJsonp(
 
   }
 
-  catch(error) {
+  catch (error) {
 
     window[
       callbackName
@@ -1569,15 +1289,6 @@ function cleanupJsonp(
       undefined;
 
   }
-
-
-  /*
-   * ไม่ปลดล็อก processing
-   * จนกว่าจะจบขั้นตอนแสดงผล
-   *
-   * showSuccess/showError
-   * จะจัดการขั้นตอนต่อไป
-   */
 
 }
 
