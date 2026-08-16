@@ -385,6 +385,12 @@
 
       }
 
+      .student-name {
+
+        font-size: 21px;
+
+      }
+
     }
 
   </style>
@@ -531,6 +537,8 @@
     </div>
 
 
+    <!-- ไม่จำเป็นต้องใช้ปุ่มแล้ว -->
+
     <div class="button-box">
 
       <button
@@ -567,6 +575,11 @@ const API_KEY =
   "COLLEGE_QR_2026";
 
 
+/************************************************
+ * ตัวแปรระบบ
+ ************************************************/
+
+
 let scanner = null;
 
 let scanning = false;
@@ -576,6 +589,8 @@ let processing = false;
 let lastScannedId = "";
 
 let lastScanTime = 0;
+
+let restartTimer = null;
 
 
 /************************************************
@@ -601,6 +616,8 @@ window.addEventListener(
 function startScanner() {
 
 
+  // ถ้ากล้องกำลังทำงานอยู่ ไม่ต้องเปิดซ้ำ
+
   if (scanning) {
 
     return;
@@ -613,6 +630,8 @@ function startScanner() {
       "reader"
     );
 
+
+  // สร้าง Scanner ใหม่
 
   scanner =
     new Html5Qrcode(
@@ -654,6 +673,8 @@ function startScanner() {
 
         scanning = true;
 
+        processing = false;
+
         document.getElementById(
           "statusText"
         ).innerText =
@@ -666,6 +687,8 @@ function startScanner() {
       function(error) {
 
         console.error(error);
+
+        scanning = false;
 
         document.getElementById(
           "statusText"
@@ -689,6 +712,9 @@ function onScanSuccess(
 ) {
 
 
+  // ถ้ากำลังบันทึกข้อมูลอยู่
+  // ไม่รับ QR ใหม่
+
   if (processing) {
 
     return;
@@ -701,6 +727,8 @@ function onScanSuccess(
       .trim();
 
 
+  // ถ้าไม่มีข้อมูล
+
   if (!studentId) {
 
     return;
@@ -711,6 +739,7 @@ function onScanSuccess(
   /**********************************************
    * ป้องกันการอ่าน QR เดิมซ้ำ
    **********************************************/
+
 
   const now =
     Date.now();
@@ -729,12 +758,15 @@ function onScanSuccess(
   lastScannedId =
     studentId;
 
+
   lastScanTime =
     now;
 
 
   processing = true;
 
+
+  // บันทึกข้อมูล
 
   saveStudent(
     studentId
@@ -750,14 +782,14 @@ function onScanSuccess(
 
 function onScanError(errorMessage) {
 
-  // ไม่ต้องแสดง error ทุก frame
-  // เพราะ scanner จะเรียกฟังก์ชันนี้บ่อยมาก
+  // ไม่ต้องแสดง Error
+  // เพราะ Scanner เรียกฟังก์ชันนี้หลายครั้งต่อวินาที
 
 }
 
 
 /************************************************
- * ส่งข้อมูลไป Apps Script
+ * ส่งข้อมูลไป Google Apps Script
  ************************************************/
 
 
@@ -780,21 +812,74 @@ function saveStudent(
 
 
   /**********************************************
-   * JSONP Callback
+   * สร้างชื่อ JSONP Callback
    **********************************************/
+
 
   const callbackName =
     "qrCallback_" +
     Date.now();
 
 
+  /**********************************************
+   * สร้าง Script ก่อน
+   **********************************************/
+
+
+  const script =
+    document.createElement(
+      "script"
+    );
+
+
+  /**********************************************
+   * ตั้ง Timeout
+   *
+   * หาก Google Apps Script ไม่ตอบกลับ
+   * ภายใน 15 วินาที ให้แจ้ง Error
+   **********************************************/
+
+
+  const timeout =
+    setTimeout(
+      function() {
+
+        showLoading(
+          false
+        );
+
+        showError(
+          "การเชื่อมต่อใช้เวลานานเกินไป กรุณาลองใหม่"
+        );
+
+        cleanupJsonp(
+          script,
+          callbackName
+        );
+
+      },
+      15000
+    );
+
+
+  /**********************************************
+   * JSONP Callback
+   **********************************************/
+
+
   window[callbackName] =
     function(data) {
+
+
+      clearTimeout(
+        timeout
+      );
 
 
       try {
 
         if (
+          data &&
           data.success
         ) {
 
@@ -807,8 +892,10 @@ function saveStudent(
         else {
 
           showError(
-            data.message ||
-            "ไม่พบข้อมูลนักศึกษา"
+            data &&
+            data.message
+              ? data.message
+              : "ไม่พบข้อมูลนักศึกษา"
           );
 
         }
@@ -836,6 +923,7 @@ function saveStudent(
    * สร้าง URL
    **********************************************/
 
+
   const params =
     new URLSearchParams({
 
@@ -854,24 +942,30 @@ function saveStudent(
     });
 
 
-  const script =
-    document.createElement(
-      "script"
-    );
-
-
   script.src =
     SCRIPT_URL +
     "?" +
     params.toString();
 
 
+  /**********************************************
+   * กรณีเชื่อมต่อไม่ได้
+   **********************************************/
+
+
   script.onerror =
     function() {
+
+
+      clearTimeout(
+        timeout
+      );
+
 
       showLoading(
         false
       );
+
 
       showError(
         "ไม่สามารถเชื่อมต่อ Google Apps Script ได้"
@@ -884,6 +978,11 @@ function saveStudent(
       );
 
     };
+
+
+  /**********************************************
+   * ส่ง Request
+   **********************************************/
 
 
   document
@@ -938,8 +1037,18 @@ function showSuccess(
     );
 
 
+  /**********************************************
+   * แสดงกล่องสีเขียว
+   **********************************************/
+
+
   result.className =
     "result success";
+
+
+  /**********************************************
+   * ข้อความ
+   **********************************************/
 
 
   document
@@ -955,7 +1064,12 @@ function showSuccess(
       "resultMessage"
     )
     .innerText =
-      "บันทึกข้อมูลเรียบร้อย";
+      "บันทึกข้อมูลแล้ว";
+
+
+  /**********************************************
+   * ชื่อนักศึกษา
+   **********************************************/
 
 
   document
@@ -963,7 +1077,12 @@ function showSuccess(
       "studentName"
     )
     .innerText =
-      data.studentName;
+      data.studentName || "";
+
+
+  /**********************************************
+   * รหัสนักศึกษา
+   **********************************************/
 
 
   document
@@ -972,7 +1091,12 @@ function showSuccess(
     )
     .innerText =
       "Student ID: " +
-      data.studentId;
+      (data.studentId || "");
+
+
+  /**********************************************
+   * วัน เวลา และสถานที่
+   **********************************************/
 
 
   document
@@ -980,11 +1104,16 @@ function showSuccess(
       "scanTime"
     )
     .innerText =
-      data.date +
+      (data.date || "") +
       " เวลา " +
-      data.time +
+      (data.time || "") +
       " น. | " +
-      data.location;
+      (data.location || "");
+
+
+  /**********************************************
+   * ซ่อนปุ่ม
+   **********************************************/
 
 
   document
@@ -992,10 +1121,37 @@ function showSuccess(
       "restartButton"
     )
     .style.display =
-      "inline-block";
+      "none";
+
+
+  /**********************************************
+   * หยุดกล้อง
+   **********************************************/
 
 
   stopScanner();
+
+
+  /**********************************************
+   * รอ 3 วินาที
+   * แล้วกลับมารับ QR ใหม่
+   **********************************************/
+
+
+  clearTimeout(
+    restartTimer
+  );
+
+
+  restartTimer =
+    setTimeout(
+      function() {
+
+        restartScanner();
+
+      },
+      3000
+    );
 
 }
 
@@ -1021,8 +1177,18 @@ function showError(
     );
 
 
+  /**********************************************
+   * แสดงกล่องสีแดง
+   **********************************************/
+
+
   result.className =
     "result error";
+
+
+  /**********************************************
+   * ไอคอน
+   **********************************************/
 
 
   document
@@ -1030,7 +1196,12 @@ function showError(
       "resultIcon"
     )
     .innerText =
-      "!" ;
+      "!";
+
+
+  /**********************************************
+   * ข้อความ Error
+   **********************************************/
 
 
   document
@@ -1039,6 +1210,11 @@ function showError(
     )
     .innerText =
       message;
+
+
+  /**********************************************
+   * ล้างข้อมูลนักศึกษา
+   **********************************************/
 
 
   document
@@ -1065,15 +1241,47 @@ function showError(
       "";
 
 
+  /**********************************************
+   * ซ่อนปุ่ม
+   **********************************************/
+
+
   document
     .getElementById(
       "restartButton"
     )
     .style.display =
-      "inline-block";
+      "none";
+
+
+  /**********************************************
+   * หยุดกล้อง
+   **********************************************/
 
 
   stopScanner();
+
+
+  /**********************************************
+   * รอ 3 วินาที
+   * แล้วกลับมาสแกนใหม่
+   **********************************************/
+
+
+  clearTimeout(
+    restartTimer
+  );
+
+
+  restartTimer =
+    setTimeout(
+      function() {
+
+        restartScanner();
+
+      },
+      3000
+    );
 
 }
 
@@ -1091,6 +1299,7 @@ function stopScanner() {
     scanning
   ) {
 
+
     scanner
       .stop()
       .then(
@@ -1099,19 +1308,22 @@ function stopScanner() {
           scanning =
             false;
 
+
           document
             .getElementById(
               "statusText"
             )
             .innerText =
-              "สแกนเสร็จแล้ว";
+              "บันทึกข้อมูลแล้ว กำลังเตรียมสแกนคนถัดไป...";
 
         }
       )
       .catch(
         function(error) {
 
-          console.error(error);
+          console.error(
+            error
+          );
 
           scanning =
             false;
@@ -1121,15 +1333,37 @@ function stopScanner() {
 
   }
 
+  else {
+
+    scanning =
+      false;
+
+  }
+
 }
 
 
 /************************************************
- * สแกนคนถัดไป
+ * เริ่มสแกนคนถัดไป
  ************************************************/
 
 
 function restartScanner() {
+
+
+  /**********************************************
+   * ยกเลิก Timer เดิม
+   **********************************************/
+
+
+  clearTimeout(
+    restartTimer
+  );
+
+
+  /**********************************************
+   * อนุญาตให้รับ QR ใหม่
+   **********************************************/
 
 
   processing =
@@ -1138,6 +1372,15 @@ function restartScanner() {
 
   lastScannedId =
     "";
+
+
+  lastScanTime =
+    0;
+
+
+  /**********************************************
+   * ซ่อนผลลัพธ์
+   **********************************************/
 
 
   document
@@ -1156,6 +1399,21 @@ function restartScanner() {
       "none";
 
 
+  /**********************************************
+   * ล้างข้อความ Loading
+   **********************************************/
+
+
+  showLoading(
+    false
+  );
+
+
+  /**********************************************
+   * เปิดกล้องใหม่
+   **********************************************/
+
+
   startScanner();
 
 }
@@ -1172,8 +1430,15 @@ function cleanupJsonp(
 ) {
 
 
-  if (script &&
-      script.parentNode) {
+  /**********************************************
+   * ลบ Script
+   **********************************************/
+
+
+  if (
+    script &&
+    script.parentNode
+  ) {
 
     script
       .parentNode
@@ -1182,6 +1447,11 @@ function cleanupJsonp(
       );
 
   }
+
+
+  /**********************************************
+   * ลบ Callback
+   **********************************************/
 
 
   try {
@@ -1196,9 +1466,15 @@ function cleanupJsonp(
 
     window[
       callbackName
-    ] = undefined;
+    ] =
+      undefined;
 
   }
+
+
+  /**********************************************
+   * ปลดล็อกการสแกน
+   **********************************************/
 
 
   processing =
