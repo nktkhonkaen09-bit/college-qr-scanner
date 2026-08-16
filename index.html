@@ -12,13 +12,16 @@
 
   <title>ระบบบันทึกเข้า-ออก วิทยาลัยฯ</title>
 
+  <!-- QR Scanner -->
   <script src="https://unpkg.com/html5-qrcode"></script>
+
 
   <style>
 
     * {
       box-sizing: border-box;
     }
+
 
     body {
 
@@ -66,14 +69,14 @@
 
       box-shadow:
         0 10px 35px
-        rgba(0,0,0,0.10);
+        rgba(0, 0, 0, 0.10);
 
     }
 
 
-    /* =========================
+    /* ========================================
        HEADER
-    ========================= */
+    ======================================== */
 
     .header {
 
@@ -92,6 +95,8 @@
 
       font-size: 30px;
 
+      line-height: 1.4;
+
     }
 
 
@@ -106,9 +111,9 @@
     }
 
 
-    /* =========================
+    /* ========================================
        LOCATION
-    ========================= */
+    ======================================== */
 
     .location-box {
 
@@ -136,7 +141,9 @@
 
       padding: 0 15px;
 
-      border: 1px solid #cbd5e1;
+      border:
+        1px solid
+        #cbd5e1;
 
       border-radius: 10px;
 
@@ -146,12 +153,21 @@
 
       color: #1e293b;
 
+      outline: none;
+
     }
 
 
-    /* =========================
+    .location-box select:focus {
+
+      border-color: #2563eb;
+
+    }
+
+
+    /* ========================================
        SCANNER
-    ========================= */
+    ======================================== */
 
     .scanner-title {
 
@@ -181,9 +197,9 @@
     }
 
 
-    /* =========================
+    /* ========================================
        STATUS
-    ========================= */
+    ======================================== */
 
     .status-text {
 
@@ -191,18 +207,47 @@
 
       margin-top: 15px;
 
-      min-height: 22px;
+      min-height: 25px;
 
       color: #64748b;
 
-      font-size: 14px;
+      font-size: 15px;
+
+      font-weight: 500;
 
     }
 
 
-    /* =========================
+    .status-text.ready {
+
+      color: #15803d;
+
+      font-weight: bold;
+
+    }
+
+
+    .status-text.busy {
+
+      color: #2563eb;
+
+      font-weight: bold;
+
+    }
+
+
+    .status-text.error {
+
+      color: #dc2626;
+
+      font-weight: bold;
+
+    }
+
+
+    /* ========================================
        LOADING
-    ========================= */
+    ======================================== */
 
     .loading {
 
@@ -219,19 +264,24 @@
 
     .spinner {
 
-      width: 35px;
+      width: 38px;
 
-      height: 35px;
+      height: 38px;
 
       margin: 0 auto 10px;
 
-      border: 4px solid #e2e8f0;
+      border:
+        4px solid
+        #e2e8f0;
 
-      border-top: 4px solid #2563eb;
+      border-top:
+        4px solid
+        #2563eb;
 
       border-radius: 50%;
 
-      animation: spin 1s linear infinite;
+      animation:
+        spin 1s linear infinite;
 
     }
 
@@ -239,15 +289,18 @@
     @keyframes spin {
 
       100% {
-        transform: rotate(360deg);
+
+        transform:
+          rotate(360deg);
+
       }
 
     }
 
 
-    /* =========================
+    /* ========================================
        RESULT
-    ========================= */
+    ======================================== */
 
     .result {
 
@@ -255,107 +308,382 @@
 
       margin-top: 20px;
 
-      padding: 20px;
+      padding: 22px;
 
-      border-radius: 15px;
+      border-radius: 18px;
 
-      text-align: center;
+      animation:
+        resultIn
+        0.3s
+        ease;
+
+    }
+
+
+    @keyframes resultIn {
+
+      from {
+
+        opacity: 0;
+
+        transform:
+          translateY(10px);
+
+      }
+
+      to {
+
+        opacity: 1;
+
+        transform:
+          translateY(0);
+
+      }
 
     }
 
 
     .result.success {
 
-      display: block;
-
-      background: #dcfce7;
+      background:
+        linear-gradient(
+          135deg,
+          #dcfce7,
+          #f0fdf4
+        );
 
       color: #166534;
+
+      border:
+        1px solid
+        #bbf7d0;
 
     }
 
 
     .result.error {
 
-      display: block;
-
-      background: #fee2e2;
+      background:
+        linear-gradient(
+          135deg,
+          #fee2e2,
+          #fff1f2
+        );
 
       color: #991b1b;
 
-    }
-
-
-    .success-icon {
-
-      font-size: 45px;
-
-      line-height: 1;
-
-      margin-bottom: 10px;
+      border:
+        1px solid
+        #fecaca;
 
     }
 
 
-    .student-name {
+    /* ========================================
+       RESULT ICON
+    ======================================== */
 
-      font-size: 24px;
+    .result-icon {
+
+      width: 70px;
+
+      height: 70px;
+
+      margin:
+        0 auto
+        12px;
+
+      border-radius: 50%;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      font-size: 42px;
 
       font-weight: bold;
 
-      margin: 10px 0;
+      background: #bbf7d0;
+
+      color: #15803d;
 
     }
 
 
-    .student-id {
+    .result.error .result-icon {
 
-      font-size: 17px;
+      background: #fecaca;
+
+      color: #dc2626;
+
+    }
+
+
+    /* ========================================
+       RESULT MESSAGE
+    ======================================== */
+
+    .result-message {
+
+      text-align: center;
+
+      font-size: 26px;
+
+      font-weight: bold;
 
       margin-bottom: 8px;
 
     }
 
 
-    .scan-time {
+    .result-submessage {
 
-      font-size: 16px;
+      text-align: center;
+
+      font-size: 17px;
+
+      margin-bottom: 18px;
 
     }
 
 
-    .countdown {
+    /* ========================================
+       RECORD DETAILS
+    ======================================== */
 
-      margin-top: 12px;
+    .record-box {
 
-      font-size: 14px;
+      background: rgba(255,255,255,0.75);
+
+      border-radius: 14px;
+
+      padding: 5px 15px;
+
+      margin-top: 15px;
+
+      border:
+        1px solid
+        rgba(22,101,52,0.12);
+
+    }
+
+
+    .record-title {
+
+      text-align: center;
+
+      font-size: 18px;
+
+      font-weight: bold;
+
+      padding:
+        12px
+        0;
+
+      border-bottom:
+        1px solid
+        rgba(22,101,52,0.12);
+
+    }
+
+
+    .record-row {
+
+      display: flex;
+
+      align-items: flex-start;
+
+      gap: 10px;
+
+      padding:
+        10px
+        0;
+
+      border-bottom:
+        1px solid
+        rgba(0,0,0,0.06);
+
+    }
+
+
+    .record-row:last-child {
+
+      border-bottom: none;
+
+    }
+
+
+    .record-icon {
+
+      width: 28px;
+
+      flex-shrink: 0;
+
+      font-size: 18px;
+
+      text-align: center;
+
+    }
+
+
+    .record-label {
+
+      width: 115px;
+
+      flex-shrink: 0;
+
+      font-weight: bold;
+
+      color: #475569;
+
+    }
+
+
+    .record-value {
+
+      flex: 1;
+
+      color: #166534;
+
+      font-weight: 600;
+
+      word-break: break-word;
+
+    }
+
+
+    /* ========================================
+       SAVE STATUS
+    ======================================== */
+
+    .save-status {
+
+      margin-top: 15px;
+
+      text-align: center;
+
+      padding: 10px;
+
+      border-radius: 10px;
+
+      background: #bbf7d0;
+
+      color: #166534;
 
       font-weight: bold;
 
     }
 
 
-    /* =========================
+    /* ========================================
+       COUNTDOWN
+    ======================================== */
+
+    .countdown {
+
+      margin-top: 15px;
+
+      padding-top: 12px;
+
+      border-top:
+        1px solid
+        rgba(0,0,0,0.10);
+
+      text-align: center;
+
+      font-size: 15px;
+
+      font-weight: bold;
+
+    }
+
+
+    /* ========================================
+       ERROR
+    ======================================== */
+
+    .error-message {
+
+      text-align: center;
+
+      margin-top: 15px;
+
+      padding: 15px;
+
+      background: rgba(255,255,255,0.7);
+
+      border-radius: 12px;
+
+      font-weight: bold;
+
+    }
+
+
+    /* ========================================
        MOBILE
-    ========================= */
+    ======================================== */
 
     @media (max-width: 600px) {
 
       .container {
+
         padding: 10px;
+
       }
+
 
       .card {
+
         padding: 18px;
+
         border-radius: 15px;
+
       }
+
 
       .header h1 {
+
         font-size: 24px;
+
       }
 
-      .student-name {
-        font-size: 21px;
+
+      .header p {
+
+        font-size: 14px;
+
+      }
+
+
+      .scanner-title {
+
+        font-size: 17px;
+
+      }
+
+
+      .result-message {
+
+        font-size: 23px;
+
+      }
+
+
+      .record-label {
+
+        width: 95px;
+
+        font-size: 14px;
+
+      }
+
+
+      .record-value {
+
+        font-size: 14px;
+
       }
 
     }
@@ -373,7 +701,9 @@
   <div class="card">
 
 
-    <!-- HEADER -->
+    <!-- =====================================
+         HEADER
+    ====================================== -->
 
     <div class="header">
 
@@ -388,7 +718,9 @@
     </div>
 
 
-    <!-- LOCATION -->
+    <!-- =====================================
+         LOCATION
+    ====================================== -->
 
     <div class="location-box">
 
@@ -420,7 +752,9 @@
     </div>
 
 
-    <!-- SCANNER -->
+    <!-- =====================================
+         SCANNER
+    ====================================== -->
 
     <div class="scanner-title">
 
@@ -440,7 +774,9 @@
     </div>
 
 
-    <!-- LOADING -->
+    <!-- =====================================
+         LOADING
+    ====================================== -->
 
     <div
       id="loading"
@@ -450,13 +786,15 @@
       <div class="spinner"></div>
 
       <div>
-        กำลังบันทึกข้อมูล...
+        กำลังบันทึกข้อมูล กรุณารอสักครู่...
       </div>
 
     </div>
 
 
-    <!-- RESULT -->
+    <!-- =====================================
+         RESULT
+    ====================================== -->
 
     <div
       id="result"
@@ -465,37 +803,184 @@
 
       <div
         id="resultIcon"
-        class="success-icon"
+        class="result-icon"
       >
         ✓
       </div>
 
 
-      <div id="resultMessage"></div>
+      <div
+        id="resultMessage"
+        class="result-message"
+      >
+      </div>
 
 
       <div
-        id="studentName"
-        class="student-name"
-      ></div>
+        id="resultSubmessage"
+        class="result-submessage"
+      >
+      </div>
 
 
-      <div
-        id="studentId"
-        class="student-id"
-      ></div>
-
+      <!-- รายละเอียดรายการที่บันทึก -->
 
       <div
-        id="scanTime"
-        class="scan-time"
-      ></div>
+        id="recordBox"
+        class="record-box"
+      >
 
+        <div class="record-title">
+
+          📋 รายละเอียดรายการที่บันทึก
+
+        </div>
+
+
+        <!-- ชื่อ -->
+
+        <div class="record-row">
+
+          <div class="record-icon">
+            👤
+          </div>
+
+          <div class="record-label">
+            ชื่อ
+          </div>
+
+          <div
+            id="recordName"
+            class="record-value"
+          >
+          </div>
+
+        </div>
+
+
+        <!-- รหัส -->
+
+        <div class="record-row">
+
+          <div class="record-icon">
+            🆔
+          </div>
+
+          <div class="record-label">
+            รหัสนักศึกษา
+          </div>
+
+          <div
+            id="recordStudentId"
+            class="record-value"
+          >
+          </div>
+
+        </div>
+
+
+        <!-- สถานที่ -->
+
+        <div class="record-row">
+
+          <div class="record-icon">
+            📍
+          </div>
+
+          <div class="record-label">
+            สถานที่
+          </div>
+
+          <div
+            id="recordLocation"
+            class="record-value"
+          >
+          </div>
+
+        </div>
+
+
+        <!-- วันที่ -->
+
+        <div class="record-row">
+
+          <div class="record-icon">
+            📅
+          </div>
+
+          <div class="record-label">
+            วันที่
+          </div>
+
+          <div
+            id="recordDate"
+            class="record-value"
+          >
+          </div>
+
+        </div>
+
+
+        <!-- เวลา -->
+
+        <div class="record-row">
+
+          <div class="record-icon">
+            🕐
+          </div>
+
+          <div class="record-label">
+            เวลา
+          </div>
+
+          <div
+            id="recordTime"
+            class="record-value"
+          >
+          </div>
+
+        </div>
+
+
+        <!-- รายการ เข้า/ออก -->
+
+        <div class="record-row">
+
+          <div class="record-icon">
+            📝
+          </div>
+
+          <div class="record-label">
+            รายการ
+          </div>
+
+          <div
+            id="recordAction"
+            class="record-value"
+          >
+          </div>
+
+        </div>
+
+
+        <!-- สถานะ -->
+
+        <div class="save-status">
+
+          ✓ บันทึกข้อมูลสำเร็จ
+
+        </div>
+
+      </div>
+
+
+      <!-- Countdown -->
 
       <div
         id="countdown"
         class="countdown"
-      ></div>
+      >
+      </div>
 
     </div>
 
@@ -523,15 +1008,31 @@ const API_KEY =
  * SETTINGS
  ************************************************/
 
-const WAIT_TIME = 3000;
+
+/*
+ * แสดงรายละเอียดหลังบันทึก
+ * 5 วินาที
+ */
+
+const DISPLAY_TIME = 5000;
+
+
+/*
+ * ป้องกัน QR เดิมซ้ำ
+ */
 
 const DUPLICATE_TIME = 5000;
+
+
+/*
+ * Timeout การเชื่อมต่อ
+ */
 
 const REQUEST_TIMEOUT = 15000;
 
 
 /************************************************
- * SYSTEM VARIABLES
+ * VARIABLES
  ************************************************/
 
 let scanner = null;
@@ -544,7 +1045,7 @@ let lastScannedId = "";
 
 let lastScanTime = 0;
 
-let resultTimer = null;
+let displayTimer = null;
 
 let countdownTimer = null;
 
@@ -571,6 +1072,7 @@ window.addEventListener(
 
 function startScanner() {
 
+
   /*
    * ถ้ากล้องเปิดอยู่แล้ว
    * ไม่ต้องเปิดใหม่
@@ -590,7 +1092,9 @@ function startScanner() {
   if (!scanner) {
 
     scanner =
-      new Html5Qrcode("reader");
+      new Html5Qrcode(
+        "reader"
+      );
 
   }
 
@@ -600,8 +1104,11 @@ function startScanner() {
     fps: 10,
 
     qrbox: {
+
       width: 250,
+
       height: 250
+
     },
 
     aspectRatio: 1.0
@@ -609,17 +1116,18 @@ function startScanner() {
   };
 
 
-  document.getElementById(
-    "statusText"
-  ).innerText =
-    "กำลังเปิดกล้อง...";
+  setStatus(
+    "กำลังเปิดกล้อง...",
+    ""
+  );
 
 
   scanner
     .start(
 
       {
-        facingMode: "environment"
+        facingMode:
+          "environment"
       },
 
       config,
@@ -637,10 +1145,10 @@ function startScanner() {
 
         processing = false;
 
-        document.getElementById(
-          "statusText"
-        ).innerText =
-          "พร้อมสแกน QR Code";
+        setStatus(
+          "✓ พร้อมรับการสแกน QR Code",
+          "ready"
+        );
 
       }
     )
@@ -655,10 +1163,10 @@ function startScanner() {
 
         scanning = false;
 
-        document.getElementById(
-          "statusText"
-        ).innerText =
-          "ไม่สามารถเปิดกล้องได้ กรุณาอนุญาตการใช้กล้อง";
+        setStatus(
+          "ไม่สามารถเปิดกล้องได้ กรุณาอนุญาตการใช้กล้อง",
+          "error"
+        );
 
       }
     );
@@ -675,11 +1183,10 @@ function onScanSuccess(
   decodedResult
 ) {
 
+
   /*
-   * สำคัญมาก:
-   *
-   * ถ้ากำลังบันทึก หรือกำลังรอ 3 วินาที
-   * จะไม่รับ QR ใหม่
+   * ถ้ากำลังบันทึกข้อมูล
+   * ไม่รับ QR ใหม่
    */
 
   if (processing) {
@@ -690,7 +1197,8 @@ function onScanSuccess(
 
 
   const studentId =
-    String(decodedText).trim();
+    String(decodedText)
+      .trim();
 
 
   if (!studentId) {
@@ -709,8 +1217,14 @@ function onScanSuccess(
 
 
   if (
-    studentId === lastScannedId &&
-    now - lastScanTime < DUPLICATE_TIME
+
+    studentId ===
+      lastScannedId &&
+
+    now -
+      lastScanTime <
+      DUPLICATE_TIME
+
   ) {
 
     return;
@@ -727,17 +1241,21 @@ function onScanSuccess(
 
 
   /*
-   * ล็อกระบบทันที
+   * ล็อกระบบ
    */
 
   processing = true;
 
 
-  /*
-   * บันทึก
-   */
+  setStatus(
+    "กำลังตรวจสอบข้อมูลนักศึกษา...",
+    "busy"
+  );
 
-  saveStudent(studentId);
+
+  saveStudent(
+    studentId
+  );
 
 }
 
@@ -751,7 +1269,10 @@ function onScanError(
 ) {
 
   /*
-   * ไม่ต้องทำอะไร
+   * ไม่แสดง Error
+   *
+   * เพราะ Scanner เรียกฟังก์ชันนี้
+   * ทุกครั้งที่ยังหา QR ไม่พบ
    */
 
 }
@@ -765,13 +1286,22 @@ function saveStudent(
   studentId
 ) {
 
+
   const location =
     document
-      .getElementById("location")
+      .getElementById(
+        "location"
+      )
       .value;
 
 
-  showLoading(true);
+  /*
+   * แสดง Loading
+   */
+
+  showLoading(
+    true
+  );
 
 
   /*
@@ -783,12 +1313,10 @@ function saveStudent(
     Date.now();
 
 
-  /*
-   * สร้าง Script
-   */
-
   const script =
-    document.createElement("script");
+    document.createElement(
+      "script"
+    );
 
 
   /*
@@ -799,11 +1327,15 @@ function saveStudent(
     setTimeout(
       function () {
 
-        showLoading(false);
+        showLoading(
+          false
+        );
+
 
         showError(
           "การเชื่อมต่อใช้เวลานานเกินไป กรุณาลองใหม่"
         );
+
 
         cleanupJsonp(
           script,
@@ -822,30 +1354,43 @@ function saveStudent(
   window[callbackName] =
     function (data) {
 
-      clearTimeout(requestTimer);
+
+      clearTimeout(
+        requestTimer
+      );
 
 
       try {
 
+
         if (
+
           data &&
           data.success
+
         ) {
 
-          showSuccess(data);
+          showSuccess(
+            data
+          );
 
         }
 
         else {
 
           showError(
+
             data &&
             data.message
+
               ? data.message
+
               : "ไม่พบข้อมูลนักศึกษา"
+
           );
 
         }
+
 
       }
 
@@ -899,19 +1444,27 @@ function saveStudent(
 
 
   /*
-   * Network Error
+   * Error
    */
 
   script.onerror =
     function () {
 
-      clearTimeout(requestTimer);
 
-      showLoading(false);
+      clearTimeout(
+        requestTimer
+      );
+
+
+      showLoading(
+        false
+      );
+
 
       showError(
         "ไม่สามารถเชื่อมต่อ Google Apps Script ได้"
       );
+
 
       cleanupJsonp(
         script,
@@ -923,23 +1476,9 @@ function saveStudent(
 
   document
     .body
-    .appendChild(script);
-
-}
-
-
-/************************************************
- * LOADING
- ************************************************/
-
-function showLoading(show) {
-
-  document
-    .getElementById("loading")
-    .style.display =
-      show
-        ? "block"
-        : "none";
+    .appendChild(
+      script
+    );
 
 }
 
@@ -948,24 +1487,40 @@ function showLoading(show) {
  * SUCCESS
  ************************************************/
 
-function showSuccess(data) {
+function showSuccess(
+  data
+) {
 
-  showLoading(false);
+
+  showLoading(
+    false
+  );
 
 
   const result =
-    document.getElementById("result");
+    document.getElementById(
+      "result"
+    );
 
-
-  /*
-   * แสดงผล
-   */
 
   result.className =
     "result success";
 
+
   result.style.display =
     "block";
+
+
+  /*
+   * Icon
+   */
+
+  document
+    .getElementById(
+      "resultIcon"
+    )
+    .innerText =
+      "✓";
 
 
   /*
@@ -973,15 +1528,30 @@ function showSuccess(data) {
    */
 
   document
-    .getElementById("resultIcon")
-    .innerText =
-      "✓";
-
-
-  document
-    .getElementById("resultMessage")
+    .getElementById(
+      "resultMessage"
+    )
     .innerText =
       "บันทึกข้อมูลแล้ว";
+
+
+  /*
+   * ข้อความตอบโต้
+   */
+
+  document
+    .getElementById(
+      "resultSubmessage"
+    )
+    .innerText =
+      "รายละเอียดรายการที่ระบบบันทึก";
+
+
+  /*
+   * =========================================
+   * รายละเอียดที่บันทึก
+   * =========================================
+   */
 
 
   /*
@@ -989,20 +1559,47 @@ function showSuccess(data) {
    */
 
   document
-    .getElementById("studentName")
+    .getElementById(
+      "recordName"
+    )
     .innerText =
-      data.studentName || "";
+      data.studentName || "-";
 
 
   /*
-   * รหัส
+   * รหัสนักศึกษา
    */
 
   document
-    .getElementById("studentId")
+    .getElementById(
+      "recordStudentId"
+    )
     .innerText =
-      "Student ID: " +
-      (data.studentId || "");
+      data.studentId || "-";
+
+
+  /*
+   * สถานที่
+   */
+
+  document
+    .getElementById(
+      "recordLocation"
+    )
+    .innerText =
+      data.location || "-";
+
+
+  /*
+   * วันที่
+   */
+
+  document
+    .getElementById(
+      "recordDate"
+    )
+    .innerText =
+      data.date || "-";
 
 
   /*
@@ -1010,30 +1607,61 @@ function showSuccess(data) {
    */
 
   document
-    .getElementById("scanTime")
+    .getElementById(
+      "recordTime"
+    )
     .innerText =
-      (data.date || "") +
-      " เวลา " +
-      (data.time || "") +
-      " น. | " +
-      (data.location || "");
+      data.time
+        ? data.time + " น."
+        : "-";
 
 
   /*
-   * สถานะ
+   * รายการ เข้า / ออก
+   *
+   * รองรับชื่อ field หลายแบบ
    */
+
+  const action =
+    data.action ||
+    data.type ||
+    data.status ||
+    data.recordType ||
+    "บันทึกเข้า-ออก";
+
 
   document
-    .getElementById("statusText")
+    .getElementById(
+      "recordAction"
+    )
     .innerText =
-      "บันทึกสำเร็จ";
+      action;
 
 
   /*
-   * รอ 3 วินาที
+   * Status
    */
 
-  waitAndReady();
+  setStatus(
+    "✓ บันทึกข้อมูลสำเร็จ",
+    "ready"
+  );
+
+
+  /*
+   * เสียง
+   */
+
+  speak(
+    "บันทึกข้อมูลแล้ว ขอบคุณครับ"
+  );
+
+
+  /*
+   * เริ่ม 5 วินาที
+   */
+
+  startWaitingPeriod();
 
 }
 
@@ -1042,92 +1670,144 @@ function showSuccess(data) {
  * ERROR
  ************************************************/
 
-function showError(message) {
+function showError(
+  message
+) {
 
-  showLoading(false);
+
+  showLoading(
+    false
+  );
 
 
   const result =
-    document.getElementById("result");
+    document.getElementById(
+      "result"
+    );
 
 
   result.className =
     "result error";
 
+
   result.style.display =
     "block";
 
 
+  /*
+   * Icon
+   */
+
   document
-    .getElementById("resultIcon")
+    .getElementById(
+      "resultIcon"
+    )
     .innerText =
       "!";
 
 
-  document
-    .getElementById("resultMessage")
-    .innerText =
-      message;
-
+  /*
+   * ข้อความ
+   */
 
   document
-    .getElementById("studentName")
+    .getElementById(
+      "resultMessage"
+    )
     .innerText =
-      "";
-
-
-  document
-    .getElementById("studentId")
-    .innerText =
-      "";
+      "ไม่สามารถบันทึกข้อมูลได้";
 
 
   document
-    .getElementById("scanTime")
+    .getElementById(
+      "resultSubmessage"
+    )
     .innerText =
-      "";
-
-
-  document
-    .getElementById("statusText")
-    .innerText =
-      "เกิดข้อผิดพลาด";
+      "กรุณาตรวจสอบข้อมูลและลองใหม่อีกครั้ง";
 
 
   /*
-   * รอ 3 วินาที
-   * แล้วกลับมาสแกนใหม่
+   * ซ่อนรายละเอียดการบันทึก
    */
 
-  waitAndReady();
+  document
+    .getElementById(
+      "recordBox"
+    )
+    .style.display =
+      "none";
+
+
+  /*
+   * Status
+   */
+
+  setStatus(
+    "เกิดข้อผิดพลาด",
+    "error"
+  );
+
+
+  /*
+   * แสดงข้อความ Error
+   */
+
+  const countdown =
+    document.getElementById(
+      "countdown"
+    );
+
+
+  countdown.innerText =
+    message;
+
+
+  /*
+   * เสียง
+   */
+
+  speak(
+    "ขออภัย ไม่สามารถบันทึกข้อมูลได้"
+  );
+
+
+  /*
+   * รอ 5 วินาที
+   */
+
+  startWaitingPeriod();
 
 }
 
 
 /************************************************
- * WAIT 3 SECONDS
+ * WAIT 5 SECONDS
  ************************************************/
 
-function waitAndReady() {
-
-  /*
-   * ยกเลิก Timer เก่า
-   */
-
-  clearTimeout(resultTimer);
-
-  clearInterval(countdownTimer);
+function startWaitingPeriod() {
 
 
-  let seconds = 3;
+  clearTimeout(
+    displayTimer
+  );
+
+
+  clearInterval(
+    countdownTimer
+  );
+
+
+  let seconds = 5;
 
 
   const countdown =
-    document.getElementById("countdown");
+    document.getElementById(
+      "countdown"
+    );
 
 
   countdown.innerText =
-    "พร้อมสแกนคนถัดไปใน " +
+    "ระบบจะพร้อมรับการสแกนคนถัดไปใน " +
     seconds +
     " วินาที";
 
@@ -1140,13 +1820,16 @@ function waitAndReady() {
     setInterval(
       function () {
 
+
         seconds--;
 
 
-        if (seconds > 0) {
+        if (
+          seconds > 0
+        ) {
 
           countdown.innerText =
-            "พร้อมสแกนคนถัดไปใน " +
+            "ระบบจะพร้อมรับการสแกนคนถัดไปใน " +
             seconds +
             " วินาที";
 
@@ -1158,12 +1841,13 @@ function waitAndReady() {
 
 
   /*
-   * ครบ 3 วินาที
+   * ครบ 5 วินาที
    */
 
-  resultTimer =
+  displayTimer =
     setTimeout(
       function () {
+
 
         clearInterval(
           countdownTimer
@@ -1175,79 +1859,297 @@ function waitAndReady() {
          */
 
         document
-          .getElementById("result")
+          .getElementById(
+            "result"
+          )
           .style.display =
             "none";
 
 
         /*
-         * ล้างข้อมูลเดิม
+         * แสดง Record Box กลับมา
+         * สำหรับการสแกนครั้งถัดไป
          */
 
         document
-          .getElementById("resultMessage")
-          .innerText =
-            "";
-
-
-        document
-          .getElementById("studentName")
-          .innerText =
-            "";
-
-
-        document
-          .getElementById("studentId")
-          .innerText =
-            "";
-
-
-        document
-          .getElementById("scanTime")
-          .innerText =
-            "";
-
-
-        document
-          .getElementById("countdown")
-          .innerText =
-            "";
+          .getElementById(
+            "recordBox"
+          )
+          .style.display =
+            "block";
 
 
         /*
-         * ปลดล็อกระบบ
+         * ล้างข้อมูล
          */
 
-        processing = false;
+        clearResult();
+
+
+        /*
+         * ปลดล็อก
+         */
+
+        processing =
+          false;
 
 
         /*
          * ล้าง QR เดิม
          */
 
-        lastScannedId = "";
+        lastScannedId =
+          "";
 
-        lastScanTime = 0;
+
+        lastScanTime =
+          0;
 
 
         /*
-         * สำคัญ:
+         * กล้องยังเปิดอยู่
          *
-         * ไม่ restart กล้อง
-         * ไม่ stop กล้อง
-         *
-         * กล้องยังเปิดอยู่ตั้งแต่ต้น
+         * ไม่ Stop
+         * ไม่ Restart
          */
 
-        document
-          .getElementById("statusText")
-          .innerText =
-            "พร้อมสแกน QR Code";
+        setStatus(
+          "✓ พร้อมรับการสแกน QR Code คนถัดไป",
+          "ready"
+        );
+
+
+        /*
+         * เสียง
+         */
+
+        speak(
+          "พร้อมรับการสแกนคนถัดไป"
+        );
 
 
       },
-      WAIT_TIME
+      DISPLAY_TIME
     );
+
+}
+
+
+/************************************************
+ * CLEAR RESULT
+ ************************************************/
+
+function clearResult() {
+
+
+  document
+    .getElementById(
+      "resultMessage"
+    )
+    .innerText =
+      "";
+
+
+  document
+    .getElementById(
+      "resultSubmessage"
+    )
+    .innerText =
+      "";
+
+
+  document
+    .getElementById(
+      "recordName"
+    )
+    .innerText =
+      "";
+
+
+  document
+    .getElementById(
+      "recordStudentId"
+    )
+    .innerText =
+      "";
+
+
+  document
+    .getElementById(
+      "recordLocation"
+    )
+    .innerText =
+      "";
+
+
+  document
+    .getElementById(
+      "recordDate"
+    )
+    .innerText =
+      "";
+
+
+  document
+    .getElementById(
+      "recordTime"
+    )
+    .innerText =
+      "";
+
+
+  document
+    .getElementById(
+      "recordAction"
+    )
+    .innerText =
+      "";
+
+
+  document
+    .getElementById(
+      "countdown"
+    )
+    .innerText =
+      "";
+
+
+  /*
+   * แสดง Record Box
+   * เผื่อการสแกนครั้งต่อไป
+   */
+
+  document
+    .getElementById(
+      "recordBox"
+    )
+    .style.display =
+      "block";
+
+}
+
+
+/************************************************
+ * LOADING
+ ************************************************/
+
+function showLoading(
+  show
+) {
+
+
+  document
+    .getElementById(
+      "loading"
+    )
+    .style.display =
+      show
+        ? "block"
+        : "none";
+
+}
+
+
+/************************************************
+ * STATUS
+ ************************************************/
+
+function setStatus(
+  message,
+  type
+) {
+
+
+  const status =
+    document.getElementById(
+      "statusText"
+    );
+
+
+  status.innerText =
+    message;
+
+
+  status.className =
+    "status-text";
+
+
+  if (type) {
+
+    status.classList.add(
+      type
+    );
+
+  }
+
+}
+
+
+/************************************************
+ * TEXT TO SPEECH
+ ************************************************/
+
+function speak(
+  message
+) {
+
+
+  if (
+    !("speechSynthesis" in window)
+  ) {
+
+    return;
+
+  }
+
+
+  try {
+
+
+    window
+      .speechSynthesis
+      .cancel();
+
+
+    const speech =
+      new SpeechSynthesisUtterance(
+        message
+      );
+
+
+    speech.lang =
+      "th-TH";
+
+
+    speech.rate =
+      0.9;
+
+
+    speech.volume =
+      1;
+
+
+    speech.pitch =
+      1;
+
+
+    window
+      .speechSynthesis
+      .speak(
+        speech
+      );
+
+
+  }
+
+  catch (error) {
+
+    console.log(
+      "Speech error:",
+      error
+    );
+
+  }
 
 }
 
@@ -1261,6 +2163,7 @@ function cleanupJsonp(
   callbackName
 ) {
 
+
   if (
     script &&
     script.parentNode
@@ -1268,7 +2171,9 @@ function cleanupJsonp(
 
     script
       .parentNode
-      .removeChild(script);
+      .removeChild(
+        script
+      );
 
   }
 
@@ -1293,6 +2198,7 @@ function cleanupJsonp(
 }
 
 </script>
+
 
 </body>
 
