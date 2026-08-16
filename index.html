@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="th">
 
 <head>
@@ -11,21 +10,16 @@
     content="width=device-width, initial-scale=1.0"
   >
 
-  <title>
-    ระบบบันทึกเข้า-ออก วิทยาลัยฯ
-  </title>
-
+  <title>ระบบบันทึกเข้า-ออก วิทยาลัยฯ</title>
 
   <!-- QR Scanner Library -->
   <script src="https://unpkg.com/html5-qrcode"></script>
-
 
   <style>
 
     * {
       box-sizing: border-box;
     }
-
 
     body {
 
@@ -43,9 +37,9 @@
           #f8fafc
         );
 
-      min-height: 100vh;
+      color: #1e293b;
 
-      color: #0f172a;
+      min-height: 100vh;
 
     }
 
@@ -54,9 +48,9 @@
 
       width: 100%;
 
-      max-width: 850px;
+      max-width: 700px;
 
-      margin: auto;
+      margin: 0 auto;
 
       padding: 20px;
 
@@ -67,13 +61,13 @@
 
       background: white;
 
-      border-radius: 22px;
+      border-radius: 20px;
 
-      padding: 30px;
+      padding: 25px;
 
       box-shadow:
         0 10px 35px
-        rgba(15, 23, 42, .12);
+        rgba(0,0,0,0.10);
 
     }
 
@@ -100,12 +94,16 @@
 
     .header p {
 
+      margin-top: 8px;
+
       color: #64748b;
 
-      margin-top: 8px;
+      font-size: 16px;
 
     }
 
+
+    /* สถานที่ */
 
     .location-box {
 
@@ -125,22 +123,38 @@
     }
 
 
-    select {
+    .location-box select {
 
       width: 100%;
 
       height: 50px;
 
+      padding: 0 15px;
+
       border:
-        1px solid #cbd5e1;
+        1px solid
+        #cbd5e1;
 
       border-radius: 10px;
 
-      padding: 0 15px;
-
-      font-size: 17px;
+      font-size: 16px;
 
       background: white;
+
+    }
+
+
+    /* Scanner */
+
+    .scanner-title {
+
+      text-align: center;
+
+      font-size: 18px;
+
+      font-weight: bold;
+
+      margin-bottom: 15px;
 
     }
 
@@ -149,9 +163,9 @@
 
       width: 100%;
 
-      max-width: 520px;
+      max-width: 500px;
 
-      margin: auto;
+      margin: 0 auto;
 
       border-radius: 15px;
 
@@ -160,44 +174,9 @@
     }
 
 
-    .status {
+    /* ผลลัพธ์ */
 
-      margin-top: 20px;
-
-      padding: 15px;
-
-      border-radius: 12px;
-
-      text-align: center;
-
-      font-weight: bold;
-
-      background: #eff6ff;
-
-      color: #1d4ed8;
-
-    }
-
-
-    .success {
-
-      background: #dcfce7;
-
-      color: #166534;
-
-    }
-
-
-    .error {
-
-      background: #fee2e2;
-
-      color: #991b1b;
-
-    }
-
-
-    .student-card {
+    .result {
 
       display: none;
 
@@ -207,37 +186,70 @@
 
       border-radius: 15px;
 
-      background: #f8fafc;
+      text-align: center;
 
     }
 
 
-    .student-card h2 {
+    .result.success {
 
-      margin-top: 0;
+      display: block;
 
-      color: #174ea6;
+      background: #dcfce7;
+
+      color: #166534;
 
     }
 
 
-    .info {
+    .result.error {
 
-      margin: 8px 0;
+      display: block;
+
+      background: #fee2e2;
+
+      color: #991b1b;
+
+    }
+
+
+    .success-icon {
+
+      font-size: 45px;
+
+      margin-bottom: 10px;
+
+    }
+
+
+    .student-name {
+
+      font-size: 24px;
+
+      font-weight: bold;
+
+      margin: 10px 0;
+
+    }
+
+
+    .student-id {
 
       font-size: 17px;
 
-    }
-
-
-    .info strong {
-
-      display: inline-block;
-
-      min-width: 120px;
+      margin-bottom: 8px;
 
     }
 
+
+    .scan-time {
+
+      font-size: 16px;
+
+    }
+
+
+    /* Loading */
 
     .loading {
 
@@ -245,38 +257,132 @@
 
       text-align: center;
 
-      margin-top: 15px;
+      margin-top: 20px;
 
-      color: #2563eb;
+      color: #475569;
 
     }
 
 
-    .footer {
+    .spinner {
+
+      width: 35px;
+
+      height: 35px;
+
+      margin: 0 auto 10px;
+
+      border:
+        4px solid
+        #e2e8f0;
+
+      border-top:
+        4px solid
+        #2563eb;
+
+      border-radius: 50%;
+
+      animation:
+        spin 1s linear infinite;
+
+    }
+
+
+    @keyframes spin {
+
+      100% {
+
+        transform:
+          rotate(360deg);
+
+      }
+
+    }
+
+
+    /* ปุ่ม */
+
+    .button-box {
 
       text-align: center;
 
-      color: #94a3b8;
-
-      font-size: 13px;
-
-      margin-top: 25px;
+      margin-top: 20px;
 
     }
 
+
+    button {
+
+      border: none;
+
+      border-radius: 10px;
+
+      padding: 13px 25px;
+
+      background: #2563eb;
+
+      color: white;
+
+      font-size: 17px;
+
+      font-weight: bold;
+
+      cursor: pointer;
+
+    }
+
+
+    button:hover {
+
+      background: #1d4ed8;
+
+    }
+
+
+    button:disabled {
+
+      background: #94a3b8;
+
+      cursor: not-allowed;
+
+    }
+
+
+    .status-text {
+
+      text-align: center;
+
+      margin-top: 15px;
+
+      color: #64748b;
+
+      font-size: 14px;
+
+    }
+
+
+    /* Mobile */
 
     @media (max-width: 600px) {
 
       .container {
+
         padding: 10px;
+
       }
 
       .card {
-        padding: 20px;
+
+        padding: 18px;
+
+        border-radius: 15px;
+
       }
 
       .header h1 {
+
         font-size: 24px;
+
       }
 
     }
@@ -289,569 +395,818 @@
 <body>
 
 
-  <div class="container">
+<div class="container">
 
-    <div class="card">
+  <div class="card">
 
 
-      <!-- Header -->
+    <!-- Header -->
 
-      <div class="header">
+    <div class="header">
 
-        <h1>
-          ระบบบันทึกเข้า-ออก วิทยาลัยฯ
-        </h1>
+      <h1>
+        ระบบบันทึกเข้า-ออก วิทยาลัยฯ
+      </h1>
 
-        <p>
-          College Attendance QR Scanner
-        </p>
-
-      </div>
-
-
-      <!-- Location -->
-
-      <div class="location-box">
-
-        <label>
-          สถานที่
-        </label>
-
-        <select id="location">
-
-          <option value="วิทยาลัยฯ">
-            วิทยาลัยฯ
-          </option>
-
-          <option value="ห้องเรียน">
-            ห้องเรียน
-          </option>
-
-          <option value="หอพัก">
-            หอพัก
-          </option>
-
-          <option value="กิจกรรม">
-            กิจกรรม
-          </option>
-
-        </select>
-
-      </div>
-
-
-      <!-- QR Reader -->
-
-      <div id="reader"></div>
-
-
-      <!-- Status -->
-
-      <div
-        id="status"
-        class="status"
-      >
-
-        📷 กรุณาหัน QR Code
-        มาที่กล้อง
-
-      </div>
-
-
-      <!-- Loading -->
-
-      <div
-        id="loading"
-        class="loading"
-      >
-
-        กำลังบันทึกข้อมูล...
-
-      </div>
-
-
-      <!-- Student -->
-
-      <div
-        id="studentCard"
-        class="student-card"
-      >
-
-        <h2>
-          บันทึกสำเร็จ
-        </h2>
-
-        <div class="info">
-
-          <strong>
-            Student ID:
-          </strong>
-
-          <span id="studentId">
-          </span>
-
-        </div>
-
-
-        <div class="info">
-
-          <strong>
-            ชื่อ-สกุล:
-          </strong>
-
-          <span id="studentName">
-          </span>
-
-        </div>
-
-
-        <div class="info">
-
-          <strong>
-            วันที่:
-          </strong>
-
-          <span id="date">
-          </span>
-
-        </div>
-
-
-        <div class="info">
-
-          <strong>
-            เวลา:
-          </strong>
-
-          <span id="time">
-          </span>
-
-        </div>
-
-
-        <div class="info">
-
-          <strong>
-            สถานที่:
-          </strong>
-
-          <span id="resultLocation">
-          </span>
-
-        </div>
-
-      </div>
-
-
-      <div class="footer">
-
-        ระบบบันทึกข้อมูลด้วย Google Sheets
-
-      </div>
-
+      <p>
+        QR Code Attendance System
+      </p>
 
     </div>
 
+
+    <!-- สถานที่ -->
+
+    <div class="location-box">
+
+      <label for="location">
+
+        สถานที่
+
+      </label>
+
+
+      <select id="location">
+
+        <option value="วิทยาลัยฯ">
+          วิทยาลัยฯ
+        </option>
+
+        <option value="อาคารเรียน">
+          อาคารเรียน
+        </option>
+
+        <option value="สำนักงาน">
+          สำนักงาน
+        </option>
+
+        <option value="ห้องประชุม">
+          ห้องประชุม
+        </option>
+
+      </select>
+
+    </div>
+
+
+    <!-- Scanner -->
+
+    <div class="scanner-title">
+
+      📷 สแกน QR Code นักศึกษา
+
+    </div>
+
+
+    <div id="reader"></div>
+
+
+    <div
+      id="statusText"
+      class="status-text"
+    >
+
+      กำลังเตรียมกล้อง...
+
+    </div>
+
+
+    <!-- Loading -->
+
+    <div
+      id="loading"
+      class="loading"
+    >
+
+      <div class="spinner"></div>
+
+      <div>
+        กำลังบันทึกข้อมูล...
+      </div>
+
+    </div>
+
+
+    <!-- Result -->
+
+    <div
+      id="result"
+      class="result"
+    >
+
+      <div
+        id="resultIcon"
+        class="success-icon"
+      >
+        ✓
+      </div>
+
+
+      <div
+        id="resultMessage"
+      >
+      </div>
+
+
+      <div
+        id="studentName"
+        class="student-name"
+      >
+      </div>
+
+
+      <div
+        id="studentId"
+        class="student-id"
+      >
+      </div>
+
+
+      <div
+        id="scanTime"
+        class="scan-time"
+      >
+      </div>
+
+    </div>
+
+
+    <div class="button-box">
+
+      <button
+        id="restartButton"
+        onclick="restartScanner()"
+        style="display:none;"
+      >
+
+        สแกนคนถัดไป
+
+      </button>
+
+    </div>
+
+
   </div>
 
+</div>
 
 
 <script>
 
 
-/****************************************************
- * ตั้งค่า Google Apps Script
- ****************************************************/
+/************************************************
+ * CONFIG
+ ************************************************/
 
-const API_URL =
-  'https://script.google.com/macros/s/AKfycbwjs9f0ZbrknNghWm6X_nkRKwG8zlMppsDoV3-Ia9TZV-n5PE2zFWdyNWvm1I8hFvNL/exec';
+
+const SCRIPT_URL =
+  "https://script.google.com/macros/s/AKfycbyoNi3ZkpARFuV3fKx7_fRfUoBGW8_GbA8VXrmRCWnJ2k-PS_3S-gHx-O_DlV-nMWWK/exec";
 
 
 const API_KEY =
-  'COLLEGE_QR_2026';
+  "COLLEGE_QR_2026";
 
 
-/****************************************************
- * ตัวแปรป้องกันการสแกนซ้ำ
- ****************************************************/
+let scanner = null;
 
-let scanningLocked = false;
+let scanning = false;
 
+let processing = false;
 
-/****************************************************
- * Element
- ****************************************************/
+let lastScannedId = "";
 
-const statusBox =
-  document.getElementById(
-    'status'
-  );
+let lastScanTime = 0;
 
 
-const loading =
-  document.getElementById(
-    'loading'
-  );
+/************************************************
+ * เริ่มต้นระบบ
+ ************************************************/
 
 
-const studentCard =
-  document.getElementById(
-    'studentCard'
-  );
+window.addEventListener(
+  "load",
+  function() {
+
+    startScanner();
+
+  }
+);
 
 
-/****************************************************
- * เริ่ม QR Scanner
- ****************************************************/
-
-const qrScanner =
-  new Html5Qrcode(
-    "reader"
-  );
+/************************************************
+ * เริ่มกล้อง
+ ************************************************/
 
 
-const scannerConfig = {
-
-  fps: 10,
-
-  qrbox: {
-    width: 250,
-    height: 250
-  },
-
-  aspectRatio: 1.0
-
-};
+function startScanner() {
 
 
-/****************************************************
- * เปิดกล้อง
- ****************************************************/
-
-qrScanner.start(
-
-  {
-    facingMode: "environment"
-  },
-
-  scannerConfig,
-
-  onScanSuccess,
-
-  onScanError
-
-)
-.catch(function(error) {
-
-  statusBox.className =
-    'status error';
-
-  statusBox.innerHTML =
-    'ไม่สามารถเปิดกล้องได้<br>' +
-    error;
-
-});
-
-
-/****************************************************
- * เมื่ออ่าน QR สำเร็จ
- ****************************************************/
-
-function onScanSuccess(
-  decodedText
-) {
-
-
-  /**************************************************
-   * ป้องกันสแกนซ้ำ
-   **************************************************/
-
-  if (scanningLocked) {
+  if (scanning) {
 
     return;
 
   }
 
 
-  scanningLocked = true;
+  const reader =
+    document.getElementById(
+      "reader"
+    );
 
 
-  /**************************************************
-   * QR ต้องเป็น Student ID
-   **************************************************/
+  scanner =
+    new Html5Qrcode(
+      "reader"
+    );
+
+
+  const config = {
+
+    fps: 10,
+
+    qrbox: {
+      width: 250,
+      height: 250
+    },
+
+    aspectRatio: 1.0
+
+  };
+
+
+  scanner
+    .start(
+
+      {
+        facingMode: "environment"
+      },
+
+      config,
+
+      onScanSuccess,
+
+      onScanError
+
+    )
+
+    .then(
+      function() {
+
+        scanning = true;
+
+        document.getElementById(
+          "statusText"
+        ).innerText =
+          "พร้อมสแกน QR Code";
+
+      }
+    )
+
+    .catch(
+      function(error) {
+
+        console.error(error);
+
+        document.getElementById(
+          "statusText"
+        ).innerText =
+          "ไม่สามารถเปิดกล้องได้ กรุณาอนุญาตการใช้กล้อง";
+
+      }
+    );
+
+}
+
+
+/************************************************
+ * เมื่อสแกน QR สำเร็จ
+ ************************************************/
+
+
+function onScanSuccess(
+  decodedText,
+  decodedResult
+) {
+
+
+  if (processing) {
+
+    return;
+
+  }
+
 
   const studentId =
-    decodedText.trim();
+    String(decodedText)
+      .trim();
 
 
   if (!studentId) {
 
-    scanningLocked = false;
+    return;
+
+  }
+
+
+  /**********************************************
+   * ป้องกันการอ่าน QR เดิมซ้ำ
+   **********************************************/
+
+  const now =
+    Date.now();
+
+
+  if (
+    studentId === lastScannedId &&
+    now - lastScanTime < 5000
+  ) {
 
     return;
 
   }
 
 
-  /**************************************************
-   * แสดงสถานะ
-   **************************************************/
+  lastScannedId =
+    studentId;
 
-  statusBox.className =
-    'status';
-
-  statusBox.innerHTML =
-    'พบ QR Code<br>' +
-    'กำลังตรวจสอบข้อมูล...';
+  lastScanTime =
+    now;
 
 
-  loading.style.display =
-    'block';
+  processing = true;
 
 
-  studentCard.style.display =
-    'none';
+  saveStudent(
+    studentId
+  );
+
+}
 
 
-  /**************************************************
-   * อ่านสถานที่
-   **************************************************/
+/************************************************
+ * QR อ่านไม่สำเร็จ
+ ************************************************/
+
+
+function onScanError(errorMessage) {
+
+  // ไม่ต้องแสดง error ทุก frame
+  // เพราะ scanner จะเรียกฟังก์ชันนี้บ่อยมาก
+
+}
+
+
+/************************************************
+ * ส่งข้อมูลไป Apps Script
+ ************************************************/
+
+
+function saveStudent(
+  studentId
+) {
+
 
   const location =
     document
       .getElementById(
-        'location'
+        "location"
       )
       .value;
 
 
-  /**************************************************
-   * เรียก Google Apps Script
-   *
-   * ใช้ JSONP เพื่อให้ GitHub Pages
-   * สามารถเรียก Apps Script ได้
-   **************************************************/
+  showLoading(
+    true
+  );
+
+
+  /**********************************************
+   * JSONP Callback
+   **********************************************/
 
   const callbackName =
-    'qrCallback_' +
+    "qrCallback_" +
     Date.now();
 
 
   window[callbackName] =
     function(data) {
 
-      /**********************************************
-       * ลบ callback
-       **********************************************/
 
-      delete window[
-        callbackName
-      ];
+      try {
 
+        if (
+          data.success
+        ) {
 
-      /**********************************************
-       * ลบ script
-       **********************************************/
+          showSuccess(
+            data
+          );
 
-      if (script.parentNode) {
+        }
 
-        script.parentNode.removeChild(
-          script
+        else {
+
+          showError(
+            data.message ||
+            "ไม่พบข้อมูลนักศึกษา"
+          );
+
+        }
+
+      }
+
+      catch(error) {
+
+        showError(
+          error.message
         );
 
       }
 
 
-      loading.style.display =
-        'none';
-
-
-      /**********************************************
-       * ถ้าไม่พบข้อมูล
-       **********************************************/
-
-      if (!data.success) {
-
-        statusBox.className =
-          'status error';
-
-        statusBox.innerHTML =
-          '❌ ' +
-          data.message;
-
-        scanningLocked = false;
-
-        return;
-
-      }
-
-
-      /**********************************************
-       * แสดงผลสำเร็จ
-       **********************************************/
-
-      statusBox.className =
-        'status success';
-
-      statusBox.innerHTML =
-        '✅ บันทึกข้อมูลเรียบร้อย';
-
-
-      document
-        .getElementById(
-          'studentId'
-        )
-        .innerText =
-          data.studentId;
-
-
-      document
-        .getElementById(
-          'studentName'
-        )
-        .innerText =
-          data.studentName;
-
-
-      document
-        .getElementById(
-          'date'
-        )
-        .innerText =
-          data.date;
-
-
-      document
-        .getElementById(
-          'time'
-        )
-        .innerText =
-          data.time;
-
-
-      document
-        .getElementById(
-          'resultLocation'
-        )
-        .innerText =
-          data.location;
-
-
-      studentCard.style.display =
-        'block';
-
-
-      /**********************************************
-       * ปลดล็อกหลัง 3 วินาที
-       **********************************************/
-
-      setTimeout(
-        function() {
-
-          scanningLocked =
-            false;
-
-          statusBox.className =
-            'status';
-
-          statusBox.innerHTML =
-            '📷 พร้อมสแกนรายการถัดไป';
-
-        },
-        3000
+      cleanupJsonp(
+        script,
+        callbackName
       );
 
     };
 
 
-  /**************************************************
+  /**********************************************
    * สร้าง URL
-   **************************************************/
+   **********************************************/
 
-  const url =
-    API_URL +
-    '?studentId=' +
-    encodeURIComponent(
-      studentId
-    ) +
-    '&location=' +
-    encodeURIComponent(
-      location
-    ) +
-    '&key=' +
-    encodeURIComponent(
-      API_KEY
-    ) +
-    '&callback=' +
-    encodeURIComponent(
-      callbackName
-    );
+  const params =
+    new URLSearchParams({
 
+      studentId:
+        studentId,
 
-  /**************************************************
-   * สร้าง Script สำหรับ JSONP
-   **************************************************/
+      location:
+        location,
+
+      key:
+        API_KEY,
+
+      callback:
+        callbackName
+
+    });
+
 
   const script =
     document.createElement(
-      'script'
+      "script"
     );
 
 
   script.src =
-    url;
+    SCRIPT_URL +
+    "?" +
+    params.toString();
 
 
   script.onerror =
     function() {
 
-      loading.style.display =
-        'none';
+      showLoading(
+        false
+      );
 
-      statusBox.className =
-        'status error';
+      showError(
+        "ไม่สามารถเชื่อมต่อ Google Apps Script ได้"
+      );
 
-      statusBox.innerHTML =
-        '❌ ไม่สามารถเชื่อมต่อ Google Apps Script';
 
-      delete window[
+      cleanupJsonp(
+        script,
         callbackName
-      ];
-
-      if (script.parentNode) {
-
-        script.parentNode.removeChild(
-          script
-        );
-
-      }
-
-      scanningLocked = false;
+      );
 
     };
 
 
-  document.body.appendChild(
-    script
+  document
+    .body
+    .appendChild(
+      script
+    );
+
+}
+
+
+/************************************************
+ * แสดง Loading
+ ************************************************/
+
+
+function showLoading(
+  show
+) {
+
+
+  document
+    .getElementById(
+      "loading"
+    )
+    .style.display =
+      show
+        ? "block"
+        : "none";
+
+}
+
+
+/************************************************
+ * แสดงผลสำเร็จ
+ ************************************************/
+
+
+function showSuccess(
+  data
+) {
+
+
+  showLoading(
+    false
   );
 
+
+  const result =
+    document.getElementById(
+      "result"
+    );
+
+
+  result.className =
+    "result success";
+
+
+  document
+    .getElementById(
+      "resultIcon"
+    )
+    .innerText =
+      "✓";
+
+
+  document
+    .getElementById(
+      "resultMessage"
+    )
+    .innerText =
+      "บันทึกข้อมูลเรียบร้อย";
+
+
+  document
+    .getElementById(
+      "studentName"
+    )
+    .innerText =
+      data.studentName;
+
+
+  document
+    .getElementById(
+      "studentId"
+    )
+    .innerText =
+      "Student ID: " +
+      data.studentId;
+
+
+  document
+    .getElementById(
+      "scanTime"
+    )
+    .innerText =
+      data.date +
+      " เวลา " +
+      data.time +
+      " น. | " +
+      data.location;
+
+
+  document
+    .getElementById(
+      "restartButton"
+    )
+    .style.display =
+      "inline-block";
+
+
+  stopScanner();
+
 }
 
 
-/****************************************************
- * เมื่อ QR อ่านไม่สำเร็จ
- ****************************************************/
+/************************************************
+ * แสดง Error
+ ************************************************/
 
-function onScanError(errorMessage) {
 
-  // ไม่ต้องแสดง Error ทุก frame
-  // เพราะ QR Scanner จะเรียกฟังก์ชันนี้บ่อยมาก
+function showError(
+  message
+) {
+
+
+  showLoading(
+    false
+  );
+
+
+  const result =
+    document.getElementById(
+      "result"
+    );
+
+
+  result.className =
+    "result error";
+
+
+  document
+    .getElementById(
+      "resultIcon"
+    )
+    .innerText =
+      "!" ;
+
+
+  document
+    .getElementById(
+      "resultMessage"
+    )
+    .innerText =
+      message;
+
+
+  document
+    .getElementById(
+      "studentName"
+    )
+    .innerText =
+      "";
+
+
+  document
+    .getElementById(
+      "studentId"
+    )
+    .innerText =
+      "";
+
+
+  document
+    .getElementById(
+      "scanTime"
+    )
+    .innerText =
+      "";
+
+
+  document
+    .getElementById(
+      "restartButton"
+    )
+    .style.display =
+      "inline-block";
+
+
+  stopScanner();
 
 }
 
+
+/************************************************
+ * หยุด Scanner
+ ************************************************/
+
+
+function stopScanner() {
+
+
+  if (
+    scanner &&
+    scanning
+  ) {
+
+    scanner
+      .stop()
+      .then(
+        function() {
+
+          scanning =
+            false;
+
+          document
+            .getElementById(
+              "statusText"
+            )
+            .innerText =
+              "สแกนเสร็จแล้ว";
+
+        }
+      )
+      .catch(
+        function(error) {
+
+          console.error(error);
+
+          scanning =
+            false;
+
+        }
+      );
+
+  }
+
+}
+
+
+/************************************************
+ * สแกนคนถัดไป
+ ************************************************/
+
+
+function restartScanner() {
+
+
+  processing =
+    false;
+
+
+  lastScannedId =
+    "";
+
+
+  document
+    .getElementById(
+      "result"
+    )
+    .style.display =
+      "none";
+
+
+  document
+    .getElementById(
+      "restartButton"
+    )
+    .style.display =
+      "none";
+
+
+  startScanner();
+
+}
+
+
+/************************************************
+ * ล้าง JSONP
+ ************************************************/
+
+
+function cleanupJsonp(
+  script,
+  callbackName
+) {
+
+
+  if (script &&
+      script.parentNode) {
+
+    script
+      .parentNode
+      .removeChild(
+        script
+      );
+
+  }
+
+
+  try {
+
+    delete window[
+      callbackName
+    ];
+
+  }
+
+  catch(error) {
+
+    window[
+      callbackName
+    ] = undefined;
+
+  }
+
+
+  processing =
+    false;
+
+}
 
 </script>
-
 
 </body>
 
